@@ -1,3 +1,4 @@
+# Credit: https://github.com/orgs/msgraph/discussions/63
 # Prerequisites: Install-Module Microsoft.Graph.Applications, Microsoft.Graph.Identity.SignIns
 
 # Connect to Microsoft Graph
