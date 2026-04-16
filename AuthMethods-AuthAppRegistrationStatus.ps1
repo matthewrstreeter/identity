@@ -37,11 +37,11 @@ catch {
 #endregion
 
 #region Get Security Group and Members
-Write-Host "Searching for security group: '$SecurityGroupName'..." -ForegroundColor Cyan
+Write-Host "Searching for security group: '$GroupName'..." -ForegroundColor Cyan
 try {
-    $group = Get-MgGroup -Filter "DisplayName eq '$SecurityGroupName'" -ErrorAction Stop
+    $group = Get-MgGroup -Filter "DisplayName eq '$GroupName'" -ErrorAction Stop
     if (-not $group) {
-        Write-Warning "No security group found with the name '$SecurityGroupName'."
+        Write-Warning "No security group found with the name '$GroupName'."
         Disconnect-MgGraph
         return
     }
