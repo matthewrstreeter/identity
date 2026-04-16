@@ -124,7 +124,7 @@ foreach ($batch in $userBatches) {
     # Send batch request
     try {
         $batchBody = @{ requests = $requests } | ConvertTo-Json -Depth 5
-        $batchResponse = Invoke-MgGraphRequest -Method POST -Uri "https://graph.microsoft.com/v1.0/`$batch" -Body $batchBody -ContentType 'application/json' -ErrorAction Stop
+        $batchResponse = Invoke-MgGraphRequest -Method POST -Uri '/$batch' -Body $batchBody -Headers @{ 'Content-Type' = 'application/json' } -ErrorAction Stop
     }
     catch {
         Write-Warning "Batch request failed for a set of users. Error: $($_.Exception.Message). Skipping batch."
@@ -155,7 +155,11 @@ foreach ($batch in $userBatches) {
             }
         }
         else {
-            Write-Warning "Failed to retrieve $type for user ID: $userId. Status: $($response.status)"
+            $errorMessage = $null
+            if ($response.body -and $response.body.error -and $response.body.error.message) {
+                $errorMessage = $response.body.error.message
+            }
+            Write-Warning "Failed to retrieve $type for user ID: $userId. Status: $($response.status)${([string]$errorMessage -ne '' ? " - $errorMessage" : '')}"
         }
     }
 
