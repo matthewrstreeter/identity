@@ -123,8 +123,7 @@ foreach ($batch in $userBatches) {
 
     # Send batch request
     try {
-        $batchBody = @{ requests = $requests } | ConvertTo-Json -Depth 5
-        $batchResponse = Invoke-MgGraphRequest -Method POST -Uri '/$batch' -Body $batchBody -Headers @{ 'Content-Type' = 'application/json' } -ErrorAction Stop
+        $batchResponse = Invoke-MgGraphRequest -Method POST -Uri 'https://graph.microsoft.com/v1.0/$batch' -Body @{ requests = $requests } -ContentType 'application/json' -ErrorAction Stop
     }
     catch {
         Write-Warning "Batch request failed for a set of users. Error: $($_.Exception.Message). Skipping batch."
