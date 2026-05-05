@@ -1,4 +1,4 @@
-# Identity
+# Entra
 
 This folder contains PowerShell scripts related to Microsoft Entra ID (formerly Azure AD) identity management tasks.
 
